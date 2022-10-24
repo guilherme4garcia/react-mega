@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useContext  } from 'react'
 import {request, randomIntFromInterval} from '../services/request'
 import { Circles } from 'react-loader-spinner'
 import formatTime from '../services/formatTime'
 import isEven from '../services/isEven'
+import { UserContext } from '../context'
 
 function Resultado() {
 
@@ -24,6 +25,11 @@ function Resultado() {
       })
       setPremio(valor_premio)
       setLoading(false)
+      const even = isEven(data.dezenas[0])
+      if(!even){
+        setIsDark(true)
+      }
+
     }
     return () => {
       fetchData()
@@ -31,6 +37,12 @@ function Resultado() {
     }
   }, [])
       
+
+ 
+
+  
+
+  const {setIsDark} = useContext(UserContext)
   const [loading, setLoading] = useState<boolean>(false)
   const [nome, setNome] = useState<string>()
   const [numero, setNumero] = useState<number>()
@@ -81,6 +93,7 @@ function Resultado() {
             <h1 className='resultado'>{premio}</h1>
           </div>
          
+          
         </div>
         
     </section>

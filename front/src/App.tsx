@@ -1,23 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import GlobalStyle from './styles/global';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './styles/theme'
 import Landing from './pages/Landing';
+import { UserContext } from './context';
 
 function App() {
-  const [isDarkTheme, setIsDarkTheme] = useState(true)
   
-  return (<>
-      <ThemeProvider theme={isDarkTheme? darkTheme : lightTheme}>
-        <GlobalStyle />
-        <button className="" onClick={() => setIsDarkTheme(!isDarkTheme)}>
+  const {isDark,setIsDark} = useContext(UserContext)
+  
+  useEffect(() => {
+  
+  }, [setIsDark])
+  
+
+  return (<> 
+    <ThemeProvider theme={isDark? darkTheme : lightTheme}>
+      <button className="" onClick={() => setIsDark(!isDark)}>
           Trocar Tema
-        </button>
-        <Landing/>
-        
-      </ThemeProvider>
+      </button>
+      <GlobalStyle /> 
+      <Landing/>
+    </ThemeProvider>
+  
     </>
   );
 }
